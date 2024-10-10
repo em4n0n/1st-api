@@ -9,4 +9,6 @@ from django.forms.models import model_to_dict
 
 @csrf_exempt
 def books(request):
-    
+    if request.method == 'GET':
+        books = Book.objects.all().values()
+        return JsonResponse({'books': (books)})
