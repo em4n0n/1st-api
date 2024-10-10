@@ -8,5 +8,5 @@ class Book(models.Model):
     
     class Meta:
         indexes = [
-            models.Index(fiels=['price']),
+            models.Index(fields=['price']),
         ]
