@@ -12,3 +12,7 @@ def books(request):
     if request.method == 'GET':
         books = Book.objects.all().values()
         return JsonResponse({'books': (books)})
+    else:
+        title = request.POST.get('title')
+        author = request.POST.get('author')
+        price = request.POST.get('price')
