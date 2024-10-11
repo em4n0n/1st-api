@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.db import IntegrityError
 from django.http import JsonResponse
 from .models import Book
@@ -11,7 +10,7 @@ from django.forms.models import model_to_dict
 def books(request):
     if request.method == 'GET':
         books = Book.objects.all().values()
-        return JsonResponse({'books': (books)})
+        return JsonResponse({'books': list(books)})
     elif request.method == 'POST':
         title = request.POST.get('title')
         author = request.POST.get('author')
@@ -23,7 +22,7 @@ def books(request):
         )
         try:
             book.save()
-        except:
+        except IntegrityError:
             return JsonResponse({'error':'true', 'message':'required field missing'},status=400)
         
         return JsonResponse(model_to_dict(book), status=201)
