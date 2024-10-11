@@ -16,3 +16,15 @@ def books(request):
         title = request.POST.get('title')
         author = request.POST.get('author')
         price = request.POST.get('price')
+        book = Book(
+            title=title,
+            author=author,
+            price=price,
+        )
+        try:
+            book.save()
+        except:
+            return JsonResponse({'error':'true', 'message':'required field missing'},status=400)
+        
+        return JsonResponse(model_to_dict(book), status=201)
+        
